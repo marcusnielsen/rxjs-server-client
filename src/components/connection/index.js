@@ -1,15 +1,19 @@
 import Rx from 'rxjs'
-import actionsFactory from './interaction/actions'
-import eventsFactory from './interaction/events'
-import render from './render'
+import actionsFactory from './interactions/actions'
+import eventsFactory from './interactions/events'
+import renderFactory from './render'
+import stateFactory from './state'
 
 function create() {
   const events = eventsFactory.create(Rx)
   const actions = actionsFactory.create(events)
+  const state = stateFactory.create(Rx, events)
+  const renderer = renderFactory.create(actions)
   return {
     events,
     actions,
-    render
+    state,
+    renderer
   }
 }
 

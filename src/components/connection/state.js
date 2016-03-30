@@ -1,8 +1,9 @@
 function create(Rx, events) {
+  const stateSubject = new Rx.Subject()
   const initialState = {
     isConnected: false
   }
-  const stateSubject = new Rx.Subject()
+
   events.connect$.subscribe(function onConnect() {
     stateSubject.next(function onStateChange() {
       return {
@@ -10,6 +11,7 @@ function create(Rx, events) {
       }
     })
   })
+
   events.disconnect$.subscribe(function onConnect() {
     stateSubject.next(function onStateChange() {
       return {
@@ -17,6 +19,7 @@ function create(Rx, events) {
       }
     })
   })
+
   const state$ = stateSubject
     .startWith(initialState)
     .scan(function onScan(currentState, stateChanger) {

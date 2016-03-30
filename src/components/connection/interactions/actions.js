@@ -1,10 +1,10 @@
 function create(events) {
   function connect() {
-    events.connect$.onNext({})
+    events.connect$.next()
   }
 
   function disconnect() {
-    events.disconnect$.onNext({})
+    events.disconnect$.next()
   }
 
   return {
